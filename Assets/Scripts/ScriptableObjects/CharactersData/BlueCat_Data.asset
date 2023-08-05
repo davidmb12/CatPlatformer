@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c799d1759667a443bff7803b9cf0ed8, type: 3}
+  m_Name: BlueCat_Data
+  m_EditorClassIdentifier: 
+  gravityStrength: -13.888887
+  gravityScale: 1.4157887
+  fallGravityMult: 3
+  maxFallSpeed: 10
+  fastFallGravityMult: 11.89
+  maxFastFallSpeed: 10
+  runMaxSpeed: 200
+  runAcceleration: 0.01
+  runAccelAmount: 0.0025
+  runDecceleration: 0.01
+  runDeccelAmount: 0.0025
+  accelInAir: 0
+  deccelInAir: 0
+  doConserveMomentum: 1
+  dashTime: 1.5
+  dashSpeed: 10
+  jumpHeight: 2.5
+  jumpTimeToApex: 0.6
+  jumpForce: 8.333333
+  jumpCutGravityMult: 3
+  jumpHangGravityMult: 0.031
+  jumpHangTimeThreshold: 0.001
+  jumpHangAccelerationMult: 10
+  jumpHangMaxSpeedMult: 10
+  colorDuration: 10
+  maxHealth: 100
+  hitNoColorTime: 0.1
+  coyoteTime: 0.068
+  jumpInputBufferTime: 0.035
+  dashInputBufferTime: 0.118
