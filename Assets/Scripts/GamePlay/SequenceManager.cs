@@ -64,8 +64,9 @@ namespace NarvalDev.Gameplay
             m_StateMachine.Run(m_SplashScreenState);
 
             CreateMenuNavigationSequence();
-            CreateLevelSequences();
-            SetStartingLevel(0);
+            AddLevelStates();
+            //CreateLevelSequences
+            //SetStartingLevel(0);
         }
 
         void InstantiatePreloadedAssets()
@@ -98,6 +99,8 @@ namespace NarvalDev.Gameplay
             transitionDelay.AddLink(new Link(m_EndTransitionState));
             m_EndTransitionState.AddLink(new EventLink(m_ContinueEvent, gameLevelState));
             gameLevelState.AddLink(new EventLink(m_ContinueEvent, m_GameStartedState));
+            
+
         }
 
         private void OnGameStarted()
@@ -105,31 +108,31 @@ namespace NarvalDev.Gameplay
             GameManager.Instance.StartGame();
         }
 
-        void CreateLevelSequences()
-        {
-            m_LevelStates.Clear();
+        // void CreateLevelSequences()
+        // {
+        //     m_LevelStates.Clear();
 
-            //Create and connect all level states
-            IState lastState = null;
-            foreach (var level in m_Levels)
-            {
-                IState state = null;
-                if (level is SceneRef sceneLevel)
-                {
-                    state = CreateLevelState(sceneLevel.m_ScenePath);
-                }
-                else
-                {
-                    state = CreateLevelState(level);
-                }
-                lastState = AddLevelPeripheralStates(state, m_LevelSelectState, lastState);
-            }
+        //     //Create and connect all level states
+        //     IState lastState = null;
+        //     foreach (var level in m_Levels)
+        //     {
+        //         IState state = null;
+        //         if (level is SceneRef sceneLevel)
+        //         {
+        //             state = CreateLevelState(sceneLevel.m_ScenePath);
+        //         }
+        //         else
+        //         {
+        //             state = CreateLevelState(level);
+        //         }
+        //         lastState = AddLevelPeripheralStates(state, m_LevelSelectState, lastState);
+        //     }
 
-            //Closing the loop: connect the last level to the level-selection state
-            var unloadLastScene = new UnloadLastSceneState(m_SceneController);
-            lastState?.AddLink(new EventLink(m_ContinueEvent, unloadLastScene));
-            unloadLastScene.AddLink(new Link(m_LevelSelectState));
-        }
+        //     //Closing the loop: connect the last level to the level-selection state
+        //     var unloadLastScene = new UnloadLastSceneState(m_SceneController);
+        //     lastState?.AddLink(new EventLink(m_ContinueEvent, unloadLastScene));
+        //     unloadLastScene.AddLink(new Link(m_LevelSelectState));
+        // }
 
         /// <summary>
         /// Creates a level state from a scene
@@ -151,35 +154,57 @@ namespace NarvalDev.Gameplay
             return new LoadLevelFromDef(m_SceneController, levelData, m_LevelManagers);
         }
 
-        IState AddLevelPeripheralStates(IState loadLevelState, IState quitState, IState lastState)
-        {
-            //Create states
-            m_LevelStates.Add(loadLevelState);
-            var gameplayState = new State(() => OnGamePlayStarted(loadLevelState));
-            var winState = new Core.PauseState(() => OnWinScreenDisplayed(loadLevelState));
-            var loseState = new Core.PauseState(ShowUI<GameoverScreen>);
+        void AddLevelStates(){
+            //var winState = new Core.PauseState(() => OnWinScreenDisplayed(loadLevelState));
+            //var loseState = new Core.PauseState(ShowUI<GameoverScreen>);
             var pauseState = new Core.PauseState(ShowUI<PauseMenu>);
             var unloadLose = new UnloadLastSceneState(m_SceneController);
             var unloadPause = new UnloadLastSceneState(m_SceneController);
+            
+            //m_GameStartedState.AddLink(new EventLink(m_WinEvent, winState));
+            //m_GameStartedState.AddLink(new EventLink(m_LoseEvent, loseState));
+            m_GameStartedState.AddLink(new EventLink(m_PauseEvent, pauseState));
 
-            //Connect the states
-            lastState?.AddLink(new EventLink(m_ContinueEvent, loadLevelState));
-            loadLevelState.AddLink(new Link(gameplayState));
+            //loseState.AddLink(new EventLink(m_ContinueEvent, loadLevelState));
+            //loseState.AddLink(new EventLink(m_BackEvent, unloadLose));
+            //unloadLose.AddLink(new Link(quitState));
 
-            gameplayState.AddLink(new EventLink(m_WinEvent, winState));
-            gameplayState.AddLink(new EventLink(m_LoseEvent, loseState));
-            gameplayState.AddLink(new EventLink(m_PauseEvent, pauseState));
-
-            loseState.AddLink(new EventLink(m_ContinueEvent, loadLevelState));
-            loseState.AddLink(new EventLink(m_BackEvent, unloadLose));
-            unloadLose.AddLink(new Link(quitState));
-
-            pauseState.AddLink(new EventLink(m_ContinueEvent, gameplayState));
+            pauseState.AddLink(new EventLink(m_ContinueEvent, m_GameStartedState));
             pauseState.AddLink(new EventLink(m_BackEvent, unloadPause));
             unloadPause.AddLink(new Link(m_MainMenuState));
 
-            return winState;
+            //return winState;
+
         }
+        // IState AddLevelPeripheralStates(IState loadLevelState, IState quitState, IState lastState)
+        // {
+        //     //Create states
+        //     //m_LevelStates.Add(loadLevelState);
+        //     //var m_GameStartedState = new State(() => OnGamePlayStarted(loadLevelState));
+        //     var winState = new Core.PauseState(() => OnWinScreenDisplayed(loadLevelState));
+        //     //var loseState = new Core.PauseState(ShowUI<GameoverScreen>);
+        //     var pauseState = new Core.PauseState(ShowUI<PauseMenu>);
+        //     var unloadLose = new UnloadLastSceneState(m_SceneController);
+        //     var unloadPause = new UnloadLastSceneState(m_SceneController);
+
+        //     //Connect the states
+        //     lastState?.AddLink(new EventLink(m_ContinueEvent, loadLevelState));
+        //     loadLevelState.AddLink(new Link(gameplayState));
+
+        //     m_GameStartedState.AddLink(new EventLink(m_WinEvent, winState));
+        //     m_GameStartedState.AddLink(new EventLink(m_LoseEvent, loseState));
+        //     m_GameStartedState.AddLink(new EventLink(m_PauseEvent, pauseState));
+
+        //     loseState.AddLink(new EventLink(m_ContinueEvent, loadLevelState));
+        //     loseState.AddLink(new EventLink(m_BackEvent, unloadLose));
+        //     unloadLose.AddLink(new Link(quitState));
+
+        //     pauseState.AddLink(new EventLink(m_ContinueEvent, gameplayState));
+        //     pauseState.AddLink(new EventLink(m_BackEvent, unloadPause));
+        //     unloadPause.AddLink(new Link(m_MainMenuState));
+
+        //     return winState;
+        // }
 
         /// <summary>
         /// Changes the starting gameplay level in the sequence of levels by making a slight change to its links

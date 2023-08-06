@@ -15,6 +15,7 @@ namespace NarvalDev.Runner
         [SerializeField]
         SoundID m_ButtonSound = SoundID.ButtonSound;
 
+        public float waitTime;
         Action m_Action;
         
         protected virtual void OnEnable()
@@ -50,7 +51,7 @@ namespace NarvalDev.Runner
         {
             Debug.Log(m_Action.Method.Name);
             PlayButtonSound();
-            StartCoroutine(WaitAndAct(2f, m_Action));
+            StartCoroutine(WaitAndAct(waitTime, m_Action));
         }
 
         IEnumerator WaitAndAct(float seconds, Action action)
