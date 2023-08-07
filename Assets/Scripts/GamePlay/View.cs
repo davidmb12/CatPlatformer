@@ -18,6 +18,7 @@ namespace NarvalDev.Core
         /// </summary>
         public virtual void Show()
         {
+            Debug.Log("Show "+this.name);
             gameObject.SetActive(true);
         }
 

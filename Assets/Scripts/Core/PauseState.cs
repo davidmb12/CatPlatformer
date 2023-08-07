@@ -18,6 +18,7 @@ namespace NarvalDev.Core
         public override void Enter()
         {
             Time.timeScale = 0f;
+            Debug.Log(m_OnPause);
             m_OnPause?.Invoke();
         }
 

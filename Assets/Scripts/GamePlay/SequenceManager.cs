@@ -44,6 +44,7 @@ namespace NarvalDev.Gameplay
         IState m_InitTransitionState;
         IState m_EndTransitionState;
         IState m_GameStartedState;
+        IState m_PausedState;
 
 
         readonly List<IState> m_LevelStates = new();
@@ -65,6 +66,7 @@ namespace NarvalDev.Gameplay
 
             CreateMenuNavigationSequence();
             AddLevelStates();
+            //AddLevelStates();
             //CreateLevelSequences
             //SetStartingLevel(0);
         }
@@ -88,6 +90,7 @@ namespace NarvalDev.Gameplay
             m_InitTransitionState = new State(OnTransitionDisplayed);
             m_EndTransitionState = new State(OnEndTransition);
             m_GameStartedState = new State(OnGameStarted);
+            m_PausedState = new State(OnPause);
 
             var gameLevelState = CreateLevelState("GameScene_RunnerMapGeneration");
 
@@ -99,7 +102,7 @@ namespace NarvalDev.Gameplay
             transitionDelay.AddLink(new Link(m_EndTransitionState));
             m_EndTransitionState.AddLink(new EventLink(m_ContinueEvent, gameLevelState));
             gameLevelState.AddLink(new EventLink(m_ContinueEvent, m_GameStartedState));
-            
+            //m_GameStartedState.AddLink(new EventLink(m_PauseEvent,m_PausedState));
 
         }
 
@@ -157,7 +160,7 @@ namespace NarvalDev.Gameplay
         void AddLevelStates(){
             //var winState = new Core.PauseState(() => OnWinScreenDisplayed(loadLevelState));
             //var loseState = new Core.PauseState(ShowUI<GameoverScreen>);
-            var pauseState = new Core.PauseState(ShowUI<PauseMenu>);
+            var pauseState = new Core.PauseState(ShowUI<PauseScreen>);
             var unloadLose = new UnloadLastSceneState(m_SceneController);
             var unloadPause = new UnloadLastSceneState(m_SceneController);
             
@@ -223,6 +226,11 @@ namespace NarvalDev.Gameplay
             UIManager.Instance.Show<T>();
         }
 
+        void OnPause(){
+            Debug.Log("Paused");
+            ShowUI<PauseScreen>();
+
+        }
         void OnMainMenuDisplayed()
         {
             ShowUI<MainMenu>();
