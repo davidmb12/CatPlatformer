@@ -61,7 +61,28 @@ namespace NarvalDev.Core
 
             return null;
         }
+        public void ShowOver<T>() where T: View
+        {
+            foreach (var view in m_Views)
+            {
+                if(view is T)
+                {
+                    view.Show();
+                    m_CurrentView = view;
+                }
+            }
+        }
 
+        public void Hide<T>() where T: View
+        {
+            foreach (var view in m_Views)
+            {
+                if(view is T)
+                {
+                    view.Hide();
+                }
+            }
+        }
         /// <summary>
         /// Finds the view of the specified type and makes it visible
         /// </summary>

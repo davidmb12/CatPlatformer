@@ -90,7 +90,6 @@ namespace NarvalDev.Gameplay
             m_InitTransitionState = new State(OnTransitionDisplayed);
             m_EndTransitionState = new State(OnEndTransition);
             m_GameStartedState = new State(OnGameStarted);
-            m_PausedState = new State(OnPause);
 
             var gameLevelState = CreateLevelState("GameScene_RunnerMapGeneration");
 
@@ -105,11 +104,7 @@ namespace NarvalDev.Gameplay
             //m_GameStartedState.AddLink(new EventLink(m_PauseEvent,m_PausedState));
 
         }
-
-        private void OnGameStarted()
-        {
-            GameManager.Instance.StartGame();
-        }
+        
 
         // void CreateLevelSequences()
         // {
@@ -163,18 +158,21 @@ namespace NarvalDev.Gameplay
             var pauseState = new Core.PauseState(ShowUI<PauseScreen>);
             var unloadLose = new UnloadLastSceneState(m_SceneController);
             var unloadPause = new UnloadLastSceneState(m_SceneController);
-            
+            var resumeGame = new State(() => { 
+                OnGameResumed();
+            }) ;
+
             //m_GameStartedState.AddLink(new EventLink(m_WinEvent, winState));
             //m_GameStartedState.AddLink(new EventLink(m_LoseEvent, loseState));
             m_GameStartedState.AddLink(new EventLink(m_PauseEvent, pauseState));
+            pauseState.AddLink(new EventLink(m_ContinueEvent, unloadPause));
+            unloadPause.AddLink(new Link(resumeGame));
+            resumeGame.AddLink(new Link(m_GameStartedState));
 
             //loseState.AddLink(new EventLink(m_ContinueEvent, loadLevelState));
             //loseState.AddLink(new EventLink(m_BackEvent, unloadLose));
             //unloadLose.AddLink(new Link(quitState));
 
-            pauseState.AddLink(new EventLink(m_ContinueEvent, m_GameStartedState));
-            pauseState.AddLink(new EventLink(m_BackEvent, unloadPause));
-            unloadPause.AddLink(new Link(m_MainMenuState));
 
             //return winState;
 
@@ -226,11 +224,16 @@ namespace NarvalDev.Gameplay
             UIManager.Instance.Show<T>();
         }
 
-        void OnPause(){
-            Debug.Log("Paused");
-            ShowUI<PauseScreen>();
-
+        
+        private void OnGameResumed()
+        {
+            UIManager.Instance.GoBack();
         }
+        private void OnGameStarted()
+        {
+            GameManager.Instance.StartGame();
+        }
+
         void OnMainMenuDisplayed()
         {
             ShowUI<MainMenu>();
@@ -239,14 +242,14 @@ namespace NarvalDev.Gameplay
 
         void OnTransitionDisplayed()
         {
-            ShowUI<TransitionScreen>();
-
+            UIManager.Instance.ShowOver<TransitionScreen>();
             m_ContinueEvent.Raise();
         }
 
         void OnEndTransition()
         {
             m_ContinueEvent.Raise();
+            UIManager.Instance.Hide<MainMenu>();
             UIManager.Instance.GetCurrentView().PlayAnimation("TransitionEndAnim");
         }
 
