@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8397819559391819058}
   - component: {fileID: 182009864498053996}
   m_Layer: 0
-  m_Name: Button (2)
+  m_Name: QuitButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -173,7 +173,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -9.701492}
+  m_AnchoredPosition: {x: 0, y: -9.701477}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5978253749045273657
@@ -391,7 +391,7 @@ GameObject:
   - component: {fileID: 3075155717874904449}
   - component: {fileID: 2672798741828458870}
   m_Layer: 0
-  m_Name: Button (1)
+  m_Name: SettingsButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -568,9 +568,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ResumeButton: {fileID: 799760367040902048}
-  m_SettingsButton: {fileID: 0}
-  m_QuitButton: {fileID: 0}
+  m_SettingsButton: {fileID: 2672798741828458870}
+  m_QuitButton: {fileID: 182009864498053996}
   m_BackEvent: {fileID: 11400000, guid: 426cd508ccc335345a9b87359a391a0d, type: 2}
+  m_QuitEvent: {fileID: 11400000, guid: 511fc3a6d7ec34e4fac665115f9604fa, type: 2}
 --- !u!222 &2586137585080215515
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -782,7 +783,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -9.701492}
+  m_AnchoredPosition: {x: 0, y: -9.701477}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4558805029745171389
@@ -917,7 +918,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -9.701492}
+  m_AnchoredPosition: {x: 0, y: -9.701477}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4355192026729571659

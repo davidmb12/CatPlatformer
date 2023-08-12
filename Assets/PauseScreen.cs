@@ -1,5 +1,6 @@
 using NarvalDev.Core;
 using NarvalDev.Runner;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -18,15 +19,24 @@ namespace NarvalDev.Gameplay
 
         [SerializeField]
         AbstractGameEvent m_BackEvent;
+        [SerializeField]
+        AbstractGameEvent m_QuitEvent;
 
         void OnEnable()
         {
             m_ResumeButton.AddListener(OnPauseButtonClick);
+            m_QuitButton.AddListener(OnQuitButtonClick);
+        }
+
+        private void OnQuitButtonClick()
+        {
+            m_QuitEvent.Raise();
         }
 
         void OnDisable()
         {
             m_ResumeButton.RemoveListener(OnPauseButtonClick);
+            m_QuitButton.RemoveListener(OnQuitButtonClick);
         }
 
         
