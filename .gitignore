@@ -10,6 +10,12 @@
 /[Ll]ogs/
 /[Mm]emoryCaptures/
 
+Assets/FMODStudioCache.asset
+Assets/FMODStudioCache.asset.meta
+Fmod.log
+Fmod_editor.log
+Assets/Plugins/FMOD/Cache/Editor/FMODStudioCache.asset.meta
+Assets/Plugins/FMOD/Cache/Editor/FMODStudioCache.asset
 # Uncomment this line if you wish to ignore the asset store tools plugin
 # [Aa]ssets/AssetStoreTools*
 

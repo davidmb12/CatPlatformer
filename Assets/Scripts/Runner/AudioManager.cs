@@ -84,7 +84,7 @@ namespace NarvalDev.Runner
                 // Disable music, enable sfx, and
                 // set volume to a very low amount
                 // in the LevelEditor
-                EnableMusic = false;
+                EnableMusic = true;
                 EnableSfx = true;
                 MasterVolume = 0.2f;
                 return;

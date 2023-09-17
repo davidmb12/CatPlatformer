@@ -117,6 +117,7 @@ GameObject:
   - component: {fileID: 8293347097833140129}
   - component: {fileID: 8293347097833140128}
   - component: {fileID: 8293347097833140131}
+  - component: {fileID: 7136386971104309297}
   m_Layer: 0
   m_Name: BlueCoin
   m_TagString: Untagged
@@ -181,3 +182,34 @@ MonoBehaviour:
   m_Sound: 0
   m_Event: {fileID: 11400000, guid: 2b58559f2ee102c449cca1b871c3135a, type: 2}
   m_Count: 1
+--- !u!114 &7136386971104309297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8293347097833140190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1766592147
+      Data2: 1097323038
+      Data3: -1323191380
+      Data4: 2126116680
+    Path: event:/CoinEvent
+  Event: 
+  PlayEvent: 5
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20

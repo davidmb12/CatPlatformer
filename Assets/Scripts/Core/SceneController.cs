@@ -49,13 +49,14 @@ namespace NarvalDev.Core
             LoadNewSceneAdditive(scene);
         }
 
-        IEnumerator UnloadScene(Scene scene)
+        public IEnumerator UnloadScene(Scene scene)
         {
             if (!m_LastScene.IsValid())
             {
                 yield break;
             }
             var asyncUnload = SceneManager.UnloadSceneAsync(scene);
+            Debug.Log(scene);
             while (!asyncUnload.isDone)
             {
                 yield return null;

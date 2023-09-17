@@ -56,13 +56,14 @@ namespace NarvalDev.Runner
 
         void Start()
         {
+            GameManager.Instance.ResetLevel();
             SetGravityScale(playerData.gravityScale);
             transform.position = startingPosition.position;
             isFacingRight = true;
             gameInput.OnJumpAction += GameInput_OnJumpAction;
             gameInput.OnJumpUpAction += GameInput_OnJumpUpAction;
             gameInput.OnDashAction += GameInput_OnDashAction;
-            m_GameManager = FindObjectOfType<GameManager>();
+            
 
 
         }
@@ -77,7 +78,7 @@ namespace NarvalDev.Runner
         // Update is called once per frame
         void Update()
         {
-            if (m_GameManager.IsPlaying)
+            if (GameManager.Instance.IsPlaying)
             {
                 HandleTimers();
                 HandleMovement();
@@ -91,7 +92,7 @@ namespace NarvalDev.Runner
 
         private void FixedUpdate()
         {
-            if (!isDashing && m_GameManager.IsPlaying)
+            if (!isDashing && GameManager.Instance.IsPlaying)
             {
                 rb.velocity = new Vector2(1f * playerData.runMaxSpeed * Time.deltaTime, rb.velocity.y);
             }
@@ -252,7 +253,6 @@ namespace NarvalDev.Runner
             lastPressedDashTime = 0;
 
             float dashSpeed = playerData.dashSpeed;
-            Debug.Log(moveDirection * playerData.dashSpeed);
             rb.AddForce(moveDirection * dashSpeed, ForceMode2D.Impulse);
         }
 

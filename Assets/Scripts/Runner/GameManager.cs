@@ -33,6 +33,7 @@ namespace NarvalDev.Runner
         [SerializeField]
         AbstractGameEvent m_GameStartedEvent;
 
+
         [SerializeField]
         int coinCount = 0;
 
@@ -60,9 +61,11 @@ namespace NarvalDev.Runner
         
         public void ResetLevel()
         {
-            if(Player.Instance != null)
+            m_IsPlaying = false;
+            if (Player.Instance != null)
             {
                 Player.Instance.ResetPlayer();
+                
             }
         }
 

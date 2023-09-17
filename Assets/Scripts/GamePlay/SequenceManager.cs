@@ -101,36 +101,11 @@ namespace NarvalDev.Gameplay
             transitionDelay.AddLink(new Link(m_EndTransitionState));
             m_EndTransitionState.AddLink(new EventLink(m_ContinueEvent, gameLevelState));
             gameLevelState.AddLink(new EventLink(m_ContinueEvent, m_GameStartedState));
+
             //m_GameStartedState.AddLink(new EventLink(m_PauseEvent,m_PausedState));
 
         }
-        
-
-        // void CreateLevelSequences()
-        // {
-        //     m_LevelStates.Clear();
-
-        //     //Create and connect all level states
-        //     IState lastState = null;
-        //     foreach (var level in m_Levels)
-        //     {
-        //         IState state = null;
-        //         if (level is SceneRef sceneLevel)
-        //         {
-        //             state = CreateLevelState(sceneLevel.m_ScenePath);
-        //         }
-        //         else
-        //         {
-        //             state = CreateLevelState(level);
-        //         }
-        //         lastState = AddLevelPeripheralStates(state, m_LevelSelectState, lastState);
-        //     }
-
-        //     //Closing the loop: connect the last level to the level-selection state
-        //     var unloadLastScene = new UnloadLastSceneState(m_SceneController);
-        //     lastState?.AddLink(new EventLink(m_ContinueEvent, unloadLastScene));
-        //     unloadLastScene.AddLink(new Link(m_LevelSelectState));
-        // }
+       
 
         /// <summary>
         /// Creates a level state from a scene
@@ -156,19 +131,22 @@ namespace NarvalDev.Gameplay
             //var winState = new Core.PauseState(() => OnWinScreenDisplayed(loadLevelState));
             //var loseState = new Core.PauseState(ShowUI<GameoverScreen>);
             var pauseState = new Core.PauseState(ShowUI<PauseScreen>);
-            var unloadLose = new UnloadLastSceneState(m_SceneController);
             var unloadPause = new UnloadLastSceneState(m_SceneController);
             var resumeGame = new State(() => { 
                 OnGameResumed();
             }) ;
-
+            var quitGame = new State(() =>
+            {
+                OnGameQuit();
+            });
             //m_GameStartedState.AddLink(new EventLink(m_WinEvent, winState));
             //m_GameStartedState.AddLink(new EventLink(m_LoseEvent, loseState));
             m_GameStartedState.AddLink(new EventLink(m_PauseEvent, pauseState));
             pauseState.AddLink(new EventLink(m_ContinueEvent, unloadPause));
             unloadPause.AddLink(new Link(resumeGame));
             resumeGame.AddLink(new Link(m_GameStartedState));
-
+            pauseState.AddLink(new EventLink(m_BackEvent, quitGame));
+            quitGame.AddLink(new Link(m_MainMenuState));
             //loseState.AddLink(new EventLink(m_ContinueEvent, loadLevelState));
             //loseState.AddLink(new EventLink(m_BackEvent, unloadLose));
             //unloadLose.AddLink(new Link(quitState));
@@ -177,6 +155,12 @@ namespace NarvalDev.Gameplay
             //return winState;
 
         }
+
+        private void OnGameQuit()
+        {
+            StartCoroutine(m_SceneController.UnloadScene(SceneManager.GetSceneByBuildIndex(1)));
+        }
+
         // IState AddLevelPeripheralStates(IState loadLevelState, IState quitState, IState lastState)
         // {
         //     //Create states
@@ -227,7 +211,8 @@ namespace NarvalDev.Gameplay
         
         private void OnGameResumed()
         {
-            UIManager.Instance.GoBack();
+            UIManager.Instance.Hide<PauseScreen>();
+            //UIManager.Instance.GoBack();
         }
         private void OnGameStarted()
         {
@@ -237,6 +222,7 @@ namespace NarvalDev.Gameplay
         void OnMainMenuDisplayed()
         {
             ShowUI<MainMenu>();
+            Debug.Log(SoundID.MenuMusic);
             AudioManager.Instance.PlayMusic(SoundID.MenuMusic);
         }
 

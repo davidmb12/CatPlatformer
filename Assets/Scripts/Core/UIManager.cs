@@ -68,6 +68,7 @@ namespace NarvalDev.Core
                 if(view is T)
                 {
                     view.Show();
+                    m_History.Push(m_CurrentView);
                     m_CurrentView = view;
                 }
             }

@@ -72,6 +72,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7539038423219967570}
+  - component: {fileID: 3236796536038937320}
   m_Layer: 0
   m_Name: LevelPart_04
   m_TagString: Untagged
@@ -97,6 +98,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3236796536038937320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7539038423219967571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2295b77fb61bfb74a9be9eefae61f826, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  validLevelParts:
+  - {fileID: 834685231, guid: 638b2c79b6177164e8f1ed3a96395728, type: 3}
+  - {fileID: 888618721, guid: 40dc054a1b6dfb2498bad94d9cea3880, type: 3}
+  - {fileID: 1646611283552766216, guid: c1b991e2cc659ab4192acd1d4bc89666, type: 3}
+  - {fileID: 3236796536038937320}
+  - {fileID: 6338881073524149813, guid: 574ceb7673d33ec4aadd1b7363acf668, type: 3}
+  - {fileID: 6099171239766591646, guid: d244f3f0b2f9ca74ba293a56e40eb474, type: 3}
+  - {fileID: 6422182494342127087, guid: 247a2911dbe27d04397ae94bce3010cc, type: 3}
+  - {fileID: 6645531598766298052, guid: a9cfa9e723b173f4cb385c018cf2ff59, type: 3}
+  endPoint: {fileID: 5994013334021485420}
 --- !u!1 &7539038423652362726
 GameObject:
   m_ObjectHideFlags: 0

@@ -354,11 +354,7 @@ MonoBehaviour:
   levelPartsParent: {fileID: 787939049}
   levelPart_Start: {fileID: 7818009820178060226, guid: 71617f99f1eb8fe4393eab590248a7dd, type: 3}
   levelPartList:
-  - {fileID: 484660477871496134, guid: 638b2c79b6177164e8f1ed3a96395728, type: 3}
-  - {fileID: 2393846019906131242, guid: 40dc054a1b6dfb2498bad94d9cea3880, type: 3}
-  - {fileID: 7165419019435873416, guid: c1b991e2cc659ab4192acd1d4bc89666, type: 3}
-  - {fileID: 7539038423219967570, guid: 240b8f045f8ebe840bb80b04b842daec, type: 3}
-  - {fileID: 5999678706764624312, guid: 574ceb7673d33ec4aadd1b7363acf668, type: 3}
+  - {fileID: 7818009820178060226, guid: 71617f99f1eb8fe4393eab590248a7dd, type: 3}
   player: {fileID: 1963049340}
 --- !u!4 &576609740
 Transform:
